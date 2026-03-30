@@ -97,8 +97,8 @@ function InputGroupButton({
     <Button
       type={type}
       data-size={size}
-      variant={variant}
-      className={cn(inputGroupButtonVariants({ size }), className)}
+      variant={variant as "default" | "outline" | "secondary" | "ghost" | "destructive" | "link"}
+      className={cn(inputGroupButtonVariants({ size }), className as string)}
       {...props}
     />
   )
