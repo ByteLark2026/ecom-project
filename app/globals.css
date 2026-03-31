@@ -10,6 +10,7 @@
   --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-sans);
+  --font-montserrat: var(--font-montserrat);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -49,39 +50,39 @@
 }
 
 :root {
-  /* E-commerce Luxury palette: warm off-white bg, dark stone primary, gold CTA */
-  --background: oklch(0.985 0.002 75);
-  --foreground: oklch(0.1 0.006 56);
+  /* Bacola grocery store: green theme */
+  --background: oklch(0.976 0 0);
+  --foreground: oklch(0.2 0.01 260);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.1 0.006 56);
+  --card-foreground: oklch(0.2 0.01 260);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.1 0.006 56);
-  --primary: oklch(0.185 0.012 56);
-  --primary-foreground: oklch(0.985 0.002 75);
-  --secondary: oklch(0.96 0.004 75);
-  --secondary-foreground: oklch(0.185 0.012 56);
-  --muted: oklch(0.96 0.004 75);
-  --muted-foreground: oklch(0.5 0.008 56);
-  --accent: oklch(0.631 0.153 78);
-  --accent-foreground: oklch(0.1 0.006 56);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.88 0.006 75);
-  --input: oklch(0.88 0.006 75);
-  --ring: oklch(0.631 0.153 78);
-  --chart-1: oklch(0.631 0.153 78);
-  --chart-2: oklch(0.5 0.008 56);
+  --popover-foreground: oklch(0.2 0.01 260);
+  --primary: oklch(0.648 0.177 143);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.96 0 0);
+  --secondary-foreground: oklch(0.2 0.01 260);
+  --muted: oklch(0.96 0 0);
+  --muted-foreground: oklch(0.55 0.01 260);
+  --accent: oklch(0.95 0.03 143);
+  --accent-foreground: oklch(0.3 0.1 143);
+  --destructive: oklch(0.58 0.24 27);
+  --border: oklch(0.91 0 0);
+  --input: oklch(0.91 0 0);
+  --ring: oklch(0.648 0.177 143);
+  --chart-1: oklch(0.648 0.177 143);
+  --chart-2: oklch(0.55 0.01 260);
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
-  --radius: 0.5rem;
-  --sidebar: oklch(0.96 0.004 75);
-  --sidebar-foreground: oklch(0.1 0.006 56);
-  --sidebar-primary: oklch(0.185 0.012 56);
-  --sidebar-primary-foreground: oklch(0.985 0.002 75);
-  --sidebar-accent: oklch(0.96 0.004 75);
-  --sidebar-accent-foreground: oklch(0.185 0.012 56);
-  --sidebar-border: oklch(0.88 0.006 75);
-  --sidebar-ring: oklch(0.631 0.153 78);
+  --radius: 0.375rem;
+  --sidebar: oklch(0.96 0 0);
+  --sidebar-foreground: oklch(0.2 0.01 260);
+  --sidebar-primary: oklch(0.648 0.177 143);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.95 0.03 143);
+  --sidebar-accent-foreground: oklch(0.3 0.1 143);
+  --sidebar-border: oklch(0.91 0 0);
+  --sidebar-ring: oklch(0.648 0.177 143);
 }
 
 .dark {
@@ -127,5 +128,8 @@
   }
   html {
     @apply font-sans;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-montserrat), var(--font-sans);
   }
 }

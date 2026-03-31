@@ -4,7 +4,6 @@ import { getFeaturedProducts } from '@/lib/queries/products'
 import { getCategories } from '@/lib/queries/categories'
 import { ProductGrid } from '@/components/products/product-grid'
 import { buttonVariants } from '@/components/ui/button-variants'
-import { Card, CardContent } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 import type { Category } from '@/types'
 
@@ -18,50 +17,57 @@ export default async function HomePage() {
     <div className="flex flex-col">
 
       {/* Hero */}
-      <section className="relative bg-foreground text-background overflow-hidden">
-        <div className="absolute inset-0 opacity-10"
-          style={{
-            backgroundImage: 'radial-gradient(circle at 20% 50%, #CA8A04 0%, transparent 50%), radial-gradient(circle at 80% 20%, #CA8A04 0%, transparent 40%)',
-          }}
-        />
-        <div className="container mx-auto px-6 py-28 md:py-40 relative z-10">
-          <div className="max-w-3xl space-y-6">
-            <p className="text-accent text-sm font-semibold uppercase tracking-[0.2em]">
-              New Season Arrivals
-            </p>
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-[1.05]">
-              Crafted for<br />the Discerning.
-            </h1>
-            <p className="text-background/60 text-lg md:text-xl max-w-xl leading-relaxed">
-              Discover premium products curated for quality, style, and lasting value.
-            </p>
-            <div className="flex flex-wrap gap-4 pt-2">
-              <Link
-                href="/products"
-                className={cn(buttonVariants({ size: 'lg' }), 'bg-accent text-accent-foreground hover:bg-accent/90 px-8 h-12 text-base font-semibold')}
-              >
-                Shop Collection
-              </Link>
-              <Link
-                href="/categories"
-                className={cn(buttonVariants({ variant: 'outline', size: 'lg' }), 'border-background/20 text-background hover:bg-background/10 px-8 h-12 text-base')}
-              >
-                Browse Categories
-              </Link>
+      <section
+        className="relative overflow-hidden"
+        style={{ background: 'linear-gradient(135deg, #1a6b26 0%, #2db83d 60%, #5dd46b 100%)' }}
+      >
+        <div className="container mx-auto px-6 py-16 md:py-24">
+          <div className="flex items-center justify-between gap-8">
+            <div className="max-w-xl space-y-6 text-white">
+              <h1 className="text-4xl md:text-5xl font-bold leading-tight">
+                Fresh &amp; Natural Groceries
+              </h1>
+              <p className="text-white/80 text-lg leading-relaxed">
+                Get the Best Deals on Premium Grocery Products
+              </p>
+              <div className="flex flex-wrap gap-4 pt-2">
+                <Link
+                  href="/products"
+                  className={cn(
+                    buttonVariants({ size: 'lg' }),
+                    'bg-white text-primary hover:bg-white/90 font-semibold px-8'
+                  )}
+                >
+                  Shop Now
+                </Link>
+                <Link
+                  href="/products"
+                  className={cn(
+                    buttonVariants({ variant: 'outline', size: 'lg' }),
+                    'border-white text-white hover:bg-white/10 px-8'
+                  )}
+                >
+                  View Categories
+                </Link>
+              </div>
+            </div>
+            {/* Decorative element */}
+            <div className="hidden md:flex flex-shrink-0 w-64 h-64 rounded-full bg-white/20 items-center justify-center text-8xl select-none">
+              🛒
             </div>
           </div>
         </div>
       </section>
 
       {/* Trust bar */}
-      <section className="border-b border-border">
+      <section className="border-b border-border bg-white">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-border">
             {[
               { label: 'Free Shipping', sub: 'On orders over $50' },
               { label: 'Easy Returns', sub: '30-day hassle-free' },
               { label: 'Secure Checkout', sub: 'SSL encrypted' },
-              { label: 'Premium Quality', sub: 'Curated selection' },
+              { label: 'Fresh Products', sub: 'Quality guaranteed' },
             ].map((item) => (
               <div key={item.label} className="py-5 px-6 text-center">
                 <p className="text-sm font-semibold text-foreground">{item.label}</p>
@@ -72,81 +78,123 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Categories */}
-      {categories.length > 0 && (
-        <section className="container mx-auto px-6 py-20">
-          <div className="flex items-end justify-between mb-10">
-            <div>
-              <p className="text-accent text-xs font-semibold uppercase tracking-widest mb-2">Collections</p>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Shop by Category</h2>
-            </div>
-            <Link href="/categories" className="text-sm font-medium underline underline-offset-4 text-muted-foreground hover:text-foreground transition-colors hidden md:block">
-              View all
-            </Link>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {categories.map((cat: Category) => (
-              <Link key={cat.id} href={`/categories/${cat.slug}`} className="group">
-                <div className="relative aspect-[4/5] bg-muted rounded-lg overflow-hidden mb-3">
+      {/* Category strip */}
+      <section className="container mx-auto px-6 py-10">
+        <h2 className="text-2xl font-bold mb-6">Shop by Category</h2>
+        {categories.length > 0 ? (
+          <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
+            {categories.slice(0, 6).map((cat: Category) => (
+              <Link
+                key={cat.id}
+                href={`/categories/${cat.slug}`}
+                className="flex flex-col items-center gap-2 p-4 bg-white border border-border rounded-md hover:border-primary hover:shadow-sm transition-all group"
+              >
+                <div className="w-12 h-12 rounded-full bg-accent flex items-center justify-center">
                   {cat.image_url ? (
-                    <Image
-                      src={cat.image_url}
-                      alt={cat.name}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      sizes="25vw"
-                    />
+                    <Image src={cat.image_url} alt={cat.name} width={32} height={32} className="object-contain" />
                   ) : (
-                    <div className="absolute inset-0 bg-gradient-to-br from-muted to-muted/60 flex items-end p-4">
-                      <span className="text-muted-foreground text-sm font-medium">{cat.name}</span>
-                    </div>
+                    <span className="text-xl">🥦</span>
                   )}
-                  <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/10 transition-colors duration-300" />
                 </div>
-                <p className="font-semibold text-sm group-hover:text-accent transition-colors">{cat.name}</p>
+                <span className="text-xs font-medium text-center group-hover:text-primary transition-colors line-clamp-2">
+                  {cat.name}
+                </span>
               </Link>
             ))}
           </div>
-        </section>
-      )}
-
-      {/* Featured Products */}
-      {featured.length > 0 && (
-        <section className="bg-secondary/40 py-20">
-          <div className="container mx-auto px-6">
-            <div className="flex items-end justify-between mb-10">
-              <div>
-                <p className="text-accent text-xs font-semibold uppercase tracking-widest mb-2">Handpicked</p>
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Featured Products</h2>
+        ) : (
+          <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div
+                key={i}
+                className="flex flex-col items-center gap-2 p-4 bg-muted border border-border rounded-md"
+              >
+                <div className="w-12 h-12 rounded-full bg-gray-200" />
+                <div className="h-3 w-16 bg-gray-200 rounded" />
               </div>
-              <Link href="/products" className={cn(buttonVariants({ variant: 'outline' }), 'hidden md:flex')}>
-                View all products
-              </Link>
-            </div>
-            <ProductGrid products={featured} />
-            <div className="mt-10 text-center md:hidden">
-              <Link href="/products" className={cn(buttonVariants({ variant: 'outline' }))}>
-                View all products
-              </Link>
-            </div>
+            ))}
           </div>
-        </section>
-      )}
+        )}
+      </section>
 
-      {/* CTA banner */}
-      <section className="container mx-auto px-6 py-20">
-        <div className="bg-foreground rounded-2xl px-8 py-14 md:px-16 text-center text-background space-y-5">
-          <p className="text-accent text-xs font-semibold uppercase tracking-widest">Members Only</p>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight">Get 10% Off Your First Order</h2>
-          <p className="text-background/60 text-lg max-w-md mx-auto">
-            Create an account and unlock exclusive deals, early access to new arrivals, and more.
-          </p>
-          <Link
-            href="/signup"
-            className={cn(buttonVariants({ size: 'lg' }), 'bg-accent text-accent-foreground hover:bg-accent/90 px-10 h-12 text-base font-semibold')}
+      {/* Best Sellers */}
+      <section className="bg-secondary/40 py-12">
+        <div className="container mx-auto px-6">
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-2xl font-bold">Best Sellers</h2>
+            <Link
+              href="/products"
+              className={cn(buttonVariants({ variant: 'outline' }), 'text-primary border-primary hover:bg-primary hover:text-white')}
+            >
+              View All
+            </Link>
+          </div>
+          {featured.length > 0 ? (
+            <ProductGrid products={featured} />
+          ) : (
+            <div className="text-center py-16 text-muted-foreground">
+              <p className="text-lg mb-2">No products yet</p>
+              <p className="text-sm">Add products via the <Link href="/admin" className="text-primary underline">admin panel</Link> to see them here.</p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Promo banners */}
+      <section className="container mx-auto px-6 py-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* Left: green */}
+          <div
+            className="rounded-md p-8 flex flex-col justify-center"
+            style={{ background: 'linear-gradient(135deg, #1a6b26 0%, #2db83d 100%)' }}
           >
-            Create Free Account
-          </Link>
+            <p className="text-white/80 text-sm mb-1">Weekend Deal</p>
+            <h3 className="text-white text-2xl font-bold mb-1">Fresh Vegetables</h3>
+            <p className="text-white/90 text-lg mb-4">Up to 30% off</p>
+            <Link
+              href="/products?category=vegetables"
+              className="inline-flex items-center bg-white text-primary font-semibold text-sm px-5 py-2 rounded-md hover:bg-white/90 transition-colors w-fit"
+            >
+              Shop Now
+            </Link>
+          </div>
+          {/* Right: amber */}
+          <div
+            className="rounded-md p-8 flex flex-col justify-center"
+            style={{ background: 'linear-gradient(135deg, #92400e 0%, #d97706 100%)' }}
+          >
+            <p className="text-white/80 text-sm mb-1">New Arrivals</p>
+            <h3 className="text-white text-2xl font-bold mb-1">Dairy Products</h3>
+            <p className="text-white/90 text-lg mb-4">Fresh &amp; Organic</p>
+            <Link
+              href="/products?category=dairy"
+              className="inline-flex items-center bg-white text-amber-700 font-semibold text-sm px-5 py-2 rounded-md hover:bg-white/90 transition-colors w-fit"
+            >
+              Shop Now
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter */}
+      <section className="py-14" style={{ background: 'linear-gradient(135deg, #1a6b26 0%, #2db83d 100%)' }}>
+        <div className="container mx-auto px-6 text-center">
+          <h2 className="text-white text-3xl font-bold mb-2">Subscribe to our Newsletter</h2>
+          <p className="text-white/80 mb-6">Get the latest deals and fresh arrivals straight to your inbox.</p>
+          <form className="flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto" action="/newsletter" method="POST">
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter your email address"
+              className="flex-1 px-4 py-2.5 rounded-md text-sm bg-white border-0 focus:outline-none focus:ring-2 focus:ring-white/50"
+            />
+            <button
+              type="submit"
+              className="bg-gray-900 text-white text-sm font-semibold px-6 py-2.5 rounded-md hover:bg-gray-800 transition-colors flex-shrink-0"
+            >
+              Subscribe
+            </button>
+          </form>
         </div>
       </section>
 
